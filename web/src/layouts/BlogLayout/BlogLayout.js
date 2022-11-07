@@ -2,7 +2,7 @@ import { useAuth } from '@redwoodjs/auth'
 import { Link, routes } from '@redwoodjs/router'
 
 const BlogLayout = ({ children }) => {
-  const { isAuthenticated, currentUser, logOut } = useAuth()
+  const { isAuthenticated, currentUser, logOut, logIn } = useAuth()
   return (
     <>
       <header className="flex-between">
@@ -19,7 +19,7 @@ const BlogLayout = ({ children }) => {
               </button>
             </div>
           ) : (
-            <Link to={routes.login()}>Login</Link>
+            <Link to={routes.logIn()}>Login</Link>
           )}
         </div>
 
