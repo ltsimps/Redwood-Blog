@@ -7,7 +7,7 @@
 // 'src/pages/HomePage/HomePage.js'         -> HomePage
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
-import { Router, Route, Set } from '@redwoodjs/router'
+import { Router, Route, Set, Private } from '@redwoodjs/router'
 
 import PostsLayout from 'src/layouts/PostsLayout'
 import BlogLayout from './layouts/BlogLayout/BlogLayout'
@@ -15,17 +15,15 @@ import BlogLayout from './layouts/BlogLayout/BlogLayout'
 const Routes = () => {
   return (
     <Router>
-      <Route path="/login" page={LoginPage} name="login" />
-      <Route path="/signup" page={SignupPage} name="signup" />
-      <Route path="/forgot-password" page={ForgotPasswordPage} name="forgotPassword" />
-      <Route path="/reset-password" page={ResetPasswordPage} name="resetPassword" />
       <Route path="/contact" page={ContactPage} name="contact" />
-      <Set wrap={PostsLayout} title="Posts" titleTo="posts" buttonLabel="New Post" buttonTo="newPost">
-        <Route path="/admin/posts/new" page={PostNewPostPage} name="newPost" />
-        <Route path="/admin/posts" page={PostPostsPage} name="posts" />
-        <Route path="/admin/posts/{id:Int}/edit" page={PostEditPostPage} name="editPost" />
-        <Route path="/admin/posts/{id:Int}" page={PostPostPage} name="post" />
-      </Set>
+      <Private unauthenticated="home">
+        <Set wrap={PostsLayout} title="Posts" titleTo="posts" buttonLabel="New Post" buttonTo="newPost">
+          <Route path="/admin/posts/new" page={PostNewPostPage} name="newPost" />
+          <Route path="/admin/posts" page={PostPostsPage} name="posts" />
+          <Route path="/admin/posts/{id:Int}/edit" page={PostEditPostPage} name="editPost" />
+          <Route path="/admin/posts/{id:Int}" page={PostPostPage} name="post" />
+        </Set>
+      </Private>
       <Set wrap={BlogLayout}>
         <Route path="/about" page={AboutPage} name="about" />
         <Route path="/contact" page={ContactPage} name="contact" />
